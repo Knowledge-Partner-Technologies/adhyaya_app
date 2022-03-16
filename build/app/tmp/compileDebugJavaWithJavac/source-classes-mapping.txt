@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/adhyaya_application_new/BuildConfig.java
+ com.example.adhyaya_application_new.BuildConfig
