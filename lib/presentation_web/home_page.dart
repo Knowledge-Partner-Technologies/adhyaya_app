@@ -1,3 +1,4 @@
+import 'package:adhyaya_application_new/presentation_web/test_screen.dart';
 import 'package:adhyaya_application_new/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -63,43 +64,52 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: Text(
-                                        'Tests Available',
-                                        style: Styles.generalTextGreen,
+                                      child: Center(
+                                        child: Text(
+                                          'Tests Available',
+                                          style: Styles.headingStyle,
+                                        ),
                                       ),
                                     ),
                                     Expanded(
-                                        flex: 4,
+                                        flex: 7,
                                         child: ListView(
-                                          children:  [
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          children: [
                                             ListTile(
-                                              leading:  const Icon(Icons.abc, color: Colors.green),
-                                                title:  const Text(
-                                                    'General Knowledge Level 1'),
-                                              subtitle: const Text('120 Marks, 60m'), trailing: ElevatedButton(onPressed: () {}, child: const Text('Take Test')),
-                                                    ),
-                                            ListTile(
-                                                leading: const Icon(Icons.abc, color: Colors.green),
-                                                title: const Text(
-                                                    'General Knowledge Level 2'),
-                                                 subtitle: const Text('100 Marks, 10m'),
-                                              trailing: ElevatedButton(onPressed: () {}, child: const Text('Take Test')),
+                                              leading: const Icon(
+                                                  Icons.book_rounded),
+                                              title: const Text(
+                                                  'General Knowledge'),
+                                              subtitle:
+                                                  const Text('90 Marks 60m'),
+                                              isThreeLine: true,
+                                              trailing: ElevatedButton(
+                                                child: const Text('Take Test'),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const TestScreen()));
+                                                },
+                                              ),
                                             ),
-                                            ListTile(
-                                                leading: const Icon(Icons.abc, color: Colors.green),
-                                                title: const Text(
-                                                    'General Knowledge Level 3'),  subtitle: const Text('100 Marks, 10m'), trailing: ElevatedButton(onPressed: () {}, child: const Text('Take Test')),),
                                           ],
                                         )),
                                   ]),
                             ),
                           )),
                       Expanded(flex: 1, child: Container()),
-                      Expanded(		
+                      Expanded(
                           flex: 2,
                           child: Card(
                             elevation: 12.0,
-                            child: Container(),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: const Text('My Results'),
+                            ),
                           )),
                       Expanded(flex: 1, child: Container()),
                     ]),

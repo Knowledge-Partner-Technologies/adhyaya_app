@@ -19,9 +19,15 @@ class Styles {
     color: Colors.black,
   );
 
-    static TextStyle generalTextGreen = const TextStyle(
+  static TextStyle generalTextGreen = const TextStyle(
     fontSize: 24.0,
     fontWeight: FontWeight.normal,
     color: Colors.green,
+  );
+
+  static TextStyle headingStyle = const TextStyle(
+    fontSize: 32.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.teal,
   );
 }

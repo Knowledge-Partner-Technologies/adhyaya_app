@@ -11,7 +11,7 @@ class MyAppMob extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Adhyaya Student',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightGreen,
       ),
       home: const HomeScreen(),
     );

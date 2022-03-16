@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  WidgetsBinding.instance;
+  WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
     runApp(const MyAppWeb());

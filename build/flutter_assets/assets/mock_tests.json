@@ -1,0 +1,19 @@
+    {
+        "availableTests": [
+            {
+                "testName": "General Knowledge",
+                "marks": 120,
+                "duration": 10
+            },
+            {
+                "testName": "India Politics",
+                "marks": 90,
+                "duration": 10
+            },
+            {
+                "testName": "India History",
+                "marks": 60,
+                "duration": 10
+            }
+        ]
+    }
