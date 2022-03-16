@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Styles {
+  
   static TextStyle loginStyle = const TextStyle(
     fontSize: 38.0,
     fontWeight: FontWeight.bold,
