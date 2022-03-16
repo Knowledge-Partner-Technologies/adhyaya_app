@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                                                 leading: const Icon(Icons.abc, color: Colors.green),
                                                 title: const Text(
                                                     'General Knowledge Level 2'),
-                                                 subtitle: const Text('90 Marks, 10m'),
+                                                 subtitle: const Text('100 Marks, 10m'),
                                               trailing: ElevatedButton(onPressed: () {}, child: const Text('Take Test')),
                                             ),
                                             ListTile(
