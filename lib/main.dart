@@ -8,7 +8,8 @@ void main() {
 
   if (kIsWeb) {
     runApp(const MyAppWeb());
-  } else {
+  }
+  else {
     runApp(const MyAppMob());
   }
 }
