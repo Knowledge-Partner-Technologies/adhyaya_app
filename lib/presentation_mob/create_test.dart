@@ -11,7 +11,7 @@ class _CreateTestState extends State<CreateTest> {
   @override
   Widget build(BuildContext context) {
     return const Material(
-      child: Center(child: Text('Center fo the create Test'),),
+      child: Center(child: Text('Center of the create Test'),),
     );
   }
 }
