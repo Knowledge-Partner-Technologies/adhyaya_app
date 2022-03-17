@@ -1,3 +1,4 @@
+import 'package:adhyaya_application_new/presentation_mob/create_test.dart';
 import 'package:adhyaya_application_new/presentation_mob/tests_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -166,17 +167,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                     flex: 2,
                                     child: Container(
-
                                       decoration: BoxDecoration(
                                           color: Colors.transparent,
                                           borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                      padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                                              BorderRadius.circular(15.0)),
+                                      padding: const EdgeInsets.only(
+                                          top: 12.0, bottom: 12.0),
                                       child: CupertinoButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const CreateTest()));
+                                        },
                                         disabledColor: Colors.grey,
                                         alignment: Alignment.center,
-                                        child: const Icon(CupertinoIcons.add, size: 48.0,color: Colors.white,),
+                                        child: const Icon(
+                                          CupertinoIcons.add,
+                                          size: 48.0,
+                                          color: Colors.white,
+                                        ),
                                         color: Colors.lightGreen,
                                       ),
                                     )),
