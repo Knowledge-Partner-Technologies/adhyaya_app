@@ -1,4 +1,5 @@
-import 'package:adhyaya_application_new/presentation_mob/home_screen.dart';
+
+import 'package:adhyaya_application_new/presentation_mob/loign_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyAppMob extends StatelessWidget {
@@ -13,7 +14,7 @@ class MyAppMob extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
