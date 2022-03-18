@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                           flex: 6,
                           child: Container(
-                            // color: Colors.blue,
                             alignment: Alignment.center,
                             child: Container(
                               height: 210.0,
@@ -58,17 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'Hyderabad',
                                 style: textStyle2,
                               ),
-                              Container(
-                                height: 48.0,
-                                width: MediaQuery.of(context).size.width / 2,
-                                decoration: BoxDecoration(
-                                    color: Colors.teal,
-                                    borderRadius: BorderRadius.circular(12.0)),
-                                alignment: Alignment.center,
+                              CupertinoButton(
+                                onPressed: () {},
                                 child: Text(
                                   'Edit Profile',
                                   style: textStyle,
                                 ),
+                                color: Colors.green,
                               ),
                             ],
                           )),
@@ -87,16 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                // Expanded(
-                                //     flex: 2,
-                                //     child: Container(
-                                //       color: Colors.transparent,
-                                //       alignment: Alignment.topLeft,
-                                //       child: Text(
-                                //         'Tests',
-                                //         style: textStyle2,
-                                //       ),
-                                //     )),
                                 Expanded(
                                     flex: 3,
                                     child: InkWell(
