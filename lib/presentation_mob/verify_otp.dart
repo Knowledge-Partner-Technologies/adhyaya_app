@@ -1,4 +1,7 @@
+import 'package:adhyaya_application_new/presentation_mob/home_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 
 class VerifyOtp extends StatelessWidget {
   const VerifyOtp({Key? key, required this.mobNumber}) : super(key: key);
@@ -10,45 +13,79 @@ class VerifyOtp extends StatelessWidget {
     return SafeArea(
       child: Material(
         color: Colors.white,
-        child: Column(children: [
-          Expanded(
-              flex: 4,
-              child: Container(
-                color: Colors.amber,
-              )),
-          Expanded(
-              flex: 2,
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                alignment: Alignment.centerLeft,
-                child: Text.rich(TextSpan(children: [
-                  const TextSpan(
-                      text: 'OTP has been sent to\n',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold)),
-                  TextSpan(
-                    text: mobNumber,
-                    style: const TextStyle(
-                        color: Colors.green,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  )
-                ])),
-              )),
-          Expanded(flex: 2, child: Container()),
-          Expanded(
-              flex: 2,
-              child: Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://images.unsplash.com/photo-1575330736918-56f8e6a074a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'),
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.fill)),
-              )),
-        ]),
+        child: Container(
+          decoration: const BoxDecoration(
+              // gradient: LinearGradient(colors: [Colors.blue, Colors.green])
+              ),
+          child: Column(children: [
+            Expanded(
+                flex: 3,
+                child: Container(
+                  color: Colors.transparent,
+                )),
+            Expanded(
+                flex: 4,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text.rich(TextSpan(children: [
+                        const TextSpan(
+                            text: 'OTP has been sent to\n',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold)),
+                        TextSpan(
+                          text: mobNumber,
+                          style: const TextStyle(
+                              // color: Colors.deepPurple,
+                              color: Colors.green,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ])),
+                    ),
+                    const Pinput(length: 6),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 24.0),
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            '30s',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 54.0,
+                      child: CupertinoButton(
+                          // color: Colors.deepPurple,
+                          color: Colors.green,
+                          child: const Text(
+                            'SUBMIT',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        const HomeScreen())));
+                          }),
+                    ),
+                  ],
+                )),
+            Expanded(flex: 3, child: Container())
+          ]),
+        ),
       ),
     );
   }
