@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPageWeb extends StatelessWidget {
+  LoginPageWeb({Key? key}) : super(key: key);
 
   final TextEditingController numberController = TextEditingController();
 
@@ -77,7 +77,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => VerifyOtp()));
+                                  builder: (context) => VerifyOtpWeb()));
                         },
                         child: Container(
                           decoration: BoxDecoration(

@@ -1,12 +1,3 @@
-2022/03/16-17:39:24.190 3028 Reusing MANIFEST C:\Users\satya\AppData\Local\Temp\flutter_tools.3eac0280\flutter_tools_chrome_device.1466073b\Default\Local Storage\leveldb/MANIFEST-000001
-2022/03/16-17:39:24.193 3028 Recovering log #4
-2022/03/16-17:39:24.194 3028 Reusing old log C:\Users\satya\AppData\Local\Temp\flutter_tools.3eac0280\flutter_tools_chrome_device.1466073b\Default\Local Storage\leveldb/000004.log 
-2022/03/16-17:51:41.898 884 Level-0 table #8: started
-2022/03/16-17:51:41.903 884 Level-0 table #8: 68242 bytes OK
-2022/03/16-17:51:41.906 884 Delete type=0 #4
-2022/03/16-17:56:54.052 884 Level-0 table #10: started
-2022/03/16-17:56:54.059 884 Level-0 table #10: 49507 bytes OK
-2022/03/16-17:56:54.062 884 Delete type=0 #7
-2022/03/16-17:58:00.020 30bc Level-0 table #12: started
-2022/03/16-17:58:00.024 30bc Level-0 table #12: 44170 bytes OK
-2022/03/16-17:58:00.027 30bc Delete type=0 #9
+2022/03/24-22:14:23.211 3310 Reusing MANIFEST C:\Users\satya\AppData\Local\Temp\flutter_tools.223f7dbc\flutter_tools_chrome_device.da4b614d\Default\Local Storage\leveldb/MANIFEST-000001
+2022/03/24-22:14:23.231 3310 Recovering log #3
+2022/03/24-22:14:23.237 3310 Reusing old log C:\Users\satya\AppData\Local\Temp\flutter_tools.223f7dbc\flutter_tools_chrome_device.da4b614d\Default\Local Storage\leveldb/000003.log 

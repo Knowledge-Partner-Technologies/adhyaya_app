@@ -13,7 +13,7 @@ class MyAppWeb extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: LoginPage(),
+      home: LoginPageWeb(),
     );
   }
 }

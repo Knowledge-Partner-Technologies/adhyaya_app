@@ -1,15 +1,16 @@
 import 'package:adhyaya_application_new/presentation_web/test_screen.dart';
 import 'package:adhyaya_application_new/utils/styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePageWeb extends StatefulWidget {
+  const HomePageWeb({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageWeb> createState() => _HomePageWebState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageWebState extends State<HomePageWeb> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,53 +55,29 @@ class _HomePageState extends State<HomePage> {
                       Expanded(flex: 1, child: Container()),
                       Expanded(
                           flex: 2,
-                          child: Card(
-                            elevation: 12.0,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: Center(
-                                        child: Text(
-                                          'Tests Available',
-                                          style: Styles.headingStyle,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 7,
-                                        child: ListView(
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          children: [
-                                            ListTile(
-                                              leading: const Icon(
-                                                  Icons.book_rounded),
-                                              title: const Text(
-                                                  'General Knowledge'),
-                                              subtitle:
-                                                  const Text('90 Marks 60m'),
-                                              isThreeLine: true,
-                                              trailing: ElevatedButton(
-                                                child: const Text('Take Test'),
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const TestScreen()));
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        )),
-                                  ]),
-                            ),
-                          )),
+                          child: FutureBuilder<dynamic>(
+                              future: getDocument(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData == true &&
+                                    snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                  return Card(
+                                    color: Colors.white,
+                                    elevation: 15.0,
+                                    child: Center(
+                                        child: Text(snapshot.data.toString())),
+                                  );
+                                } else {
+                                  return const Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive());
+                                }
+
+                                // return Card(
+                                //   elevation: 12.0,
+                                //   child: testsAvailable(context),
+                                // );
+                              })),
                       Expanded(flex: 1, child: Container()),
                       Expanded(
                           flex: 2,
@@ -118,5 +95,54 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ));
+  }
+
+  Padding testsAvailable(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: Text(
+                  'Tests Available',
+                  style: Styles.headingStyle,
+                ),
+              ),
+            ),
+            Expanded(
+                flex: 7,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.book_rounded),
+                      title: const Text('General Knowledge'),
+                      subtitle: const Text('90 Marks 60m'),
+                      isThreeLine: true,
+                      trailing: ElevatedButton(
+                        child: const Text('Take Test'),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TestScreenWeb()));
+                        },
+                      ),
+                    ),
+                  ],
+                )),
+          ]),
+    );
+  }
+
+  Future<dynamic> getDocument() async {
+    final result = FirebaseFirestore.instance.collection('tests_data');
+
+    return result;
   }
 }

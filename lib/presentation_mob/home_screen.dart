@@ -1,5 +1,6 @@
 import 'package:adhyaya_application_new/presentation_mob/create_test.dart';
 import 'package:adhyaya_application_new/presentation_mob/tests_details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -104,10 +105,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   BorderRadius.circular(15.0)),
                                           alignment: Alignment.centerLeft,
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Published Tests',
-                                            style: textStyle,
-                                          ),
+                                          child: FutureBuilder<dynamic>(
+                                              future: getDocument(),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData == true &&
+                                                    snapshot.connectionState ==
+                                                        ConnectionState.done) {
+                                                  return Text(
+                                                      snapshot.data.toString());
+                                                } else {
+                                                 return const Center(
+                                                      child:
+                                                          CircularProgressIndicator
+                                                              .adaptive());
+                                                }
+                                                // return Text(
+                                                //   'Published Tests',
+                                                //   style: textStyle,
+                                                // );
+                                              }),
                                         ),
                                       ),
                                     )),
@@ -199,4 +215,10 @@ class _HomeScreenState extends State<HomeScreen> {
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
+
+  Future<dynamic> getDocument() async {
+    final result = FirebaseFirestore.instance.collection('tests_data');
+
+    return result;
+  }
 }

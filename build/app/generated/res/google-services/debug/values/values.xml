@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">84177703406-ij3kqga665teo3p89r55a4upbqcnifdf.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">84177703406</string>
+    <string name="google_api_key" translatable="false">AIzaSyAmaEayPCsq5ilFm90yW7iRr8asd1dzI7k</string>
+    <string name="google_app_id" translatable="false">1:84177703406:android:9a8d177a6191ec916ebeff</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAmaEayPCsq5ilFm90yW7iRr8asd1dzI7k</string>
+    <string name="google_storage_bucket" translatable="false">adhyaya-app.appspot.com</string>
+    <string name="project_id" translatable="false">adhyaya-app</string>
+</resources>

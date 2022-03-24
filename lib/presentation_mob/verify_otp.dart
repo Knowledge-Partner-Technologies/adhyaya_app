@@ -12,12 +12,7 @@ class VerifyOtp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Material(
-        color: Colors.white,
-        child: Container(
-          decoration: const BoxDecoration(
-              // gradient: LinearGradient(colors: [Colors.blue, Colors.green])
-              ),
-          child: Column(children: [
+        child:  Column(children: [
             Expanded(
                 flex: 3,
                 child: Container(
@@ -84,9 +79,6 @@ class VerifyOtp extends StatelessWidget {
                   ],
                 )),
             Expanded(flex: 3, child: Container())
-          ]),
-        ),
-      ),
-    );
+          ])));
   }
 }
