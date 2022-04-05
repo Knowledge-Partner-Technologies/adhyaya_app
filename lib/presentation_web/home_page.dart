@@ -1,7 +1,8 @@
-import 'package:adhyaya_application_new/presentation_web/test_screen.dart';
+import 'package:adhyaya_application_new/blocs/tests_bloc/availabletests_bloc.dart';
+import 'package:adhyaya_application_new/data/models/get_tests_model.dart';
 import 'package:adhyaya_application_new/utils/styles.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePageWeb extends StatefulWidget {
   const HomePageWeb({Key? key}) : super(key: key);
@@ -55,29 +56,35 @@ class _HomePageWebState extends State<HomePageWeb> {
                       Expanded(flex: 1, child: Container()),
                       Expanded(
                           flex: 2,
-                          child: FutureBuilder<dynamic>(
-                              future: getDocument(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData == true &&
-                                    snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                  return Card(
-                                    color: Colors.white,
-                                    elevation: 15.0,
-                                    child: Center(
-                                        child: Text(snapshot.data.toString())),
-                                  );
-                                } else {
-                                  return const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive());
-                                }
+                          child: Card(
+                            elevation: 12.0,
+                            child: testsAvailable(context),
+                          )
+                          // return Card(
+                          //   elevation: 12.0,
+                          //   child: testsAvailable(context),
+                          // );
+                          //  FutureBuilder<dynamic>(
+                          //     future: getDocument(),
+                          //     builder: (context, snapshot) {
+                          //       if (snapshot.hasData == true &&
+                          //           snapshot.connectionState ==
+                          //               ConnectionState.done) {
+                          //         return Card(
+                          //           color: Colors.white,
+                          //           elevation: 15.0,
+                          //           child: Center(
+                          //               child: Text(snapshot.data.toString())),
+                          //         );
+                          //       } else {
+                          //         return const Center(
+                          //             child:
+                          //                 CircularProgressIndicator.adaptive());
+                          //       }
 
-                                // return Card(
-                                //   elevation: 12.0,
-                                //   child: testsAvailable(context),
-                                // );
-                              })),
+                          //     }
+                          //     )
+                          ),
                       Expanded(flex: 1, child: Container()),
                       Expanded(
                           flex: 2,
@@ -115,34 +122,67 @@ class _HomePageWebState extends State<HomePageWeb> {
             ),
             Expanded(
                 flex: 7,
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.book_rounded),
-                      title: const Text('General Knowledge'),
-                      subtitle: const Text('90 Marks 60m'),
-                      isThreeLine: true,
-                      trailing: ElevatedButton(
-                        child: const Text('Take Test'),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TestScreenWeb()));
+                child: BlocBuilder<AvailabletestsBloc, AvailabletestsState>(
+                  builder: (context, state) {
+                    if (state is AvailabletestsInitial) {
+                      return const Center(
+                          child: CircularProgressIndicator.adaptive());
+                    } else if (state is AvailabletestsLoaded) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.loadedTests.length,
+                        itemBuilder: (context, index) {
+                          return testTile(
+                              context: context,
+                              model: state.loadedTests[index],
+                              onTap: () {});
                         },
-                      ),
-                    ),
-                  ],
+                      );
+                    } else if (state is AvailabletestError) {
+                      return Center(
+                        child:
+                            Card(elevation: 15.0, child: Text(state.message)),
+                      );
+                    } else if (state is AvailabletestEmpty) {
+                      return Center(
+                        child: Card(
+                          elevation: 10.0,
+                          child: Text(state.message),
+                        ),
+                      );
+                    } else if (state is AvailabletestEmpty) {
+                      return Center(
+                        child: Card(
+                          elevation: 10.0,
+                          child: Text(state.message),
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: Text('Something unexpected happend'),
+                      );
+                    }
+                  },
                 )),
           ]),
     );
   }
 
-  Future<dynamic> getDocument() async {
-    final result = FirebaseFirestore.instance.collection('tests_data');
-
-    return result;
+  Widget testTile(
+      {required BuildContext context,
+      required GetTestModel model,
+     
+      required VoidCallback onTap}) {
+    return ListTile(
+      leading: const Icon(Icons.book_rounded),
+      title: Text(model.testName + model.id),
+      subtitle: Text('${model.totalMarks} Marks ' '${model.duration} Minutes'),
+      isThreeLine: true,
+      trailing: ElevatedButton(
+        child: const Text('Take Test'),
+        onPressed: onTap,
+      ),
+    );
   }
 }

@@ -5,26 +5,29 @@ import 'package:flutter/material.dart';
 class AddQuestion extends StatefulWidget {
   const AddQuestion({
     Key? key,
-  }) : super(key: key);  
+  }) : super(key: key);
 
   @override
   _AddQuestionState createState() => _AddQuestionState();
 }
 
 class _AddQuestionState extends State<AddQuestion> {
-  final TextEditingController? questionController = TextEditingController();
+ 
+ 
+
+  final TextEditingController questionController = TextEditingController();
 
   final TextEditingController optionController = TextEditingController();
-  final List<TextEditingController?> options = <TextEditingController>[];
-  int? groupVal = -1;
 
-  @override
-  void initState() {
-    // for (options.isEmpty; options.length <= 2; options.length++) {
-    //   options.add(optionController);
-    // }
-    super.initState();
-  }
+  final TextEditingController optionController1 = TextEditingController();
+
+  final TextEditingController optionController2 = TextEditingController();
+
+  final TextEditingController optionController3 = TextEditingController();
+
+  final TextEditingController optionController4 = TextEditingController();
+
+  int? groupVal;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +40,8 @@ class _AddQuestionState extends State<AddQuestion> {
               subtitle: TextFormField(
             controller: questionController,
             keyboardType: TextInputType.text,
-            decoration: const InputDecoration(
-                label: Text('Question'),
-                labelStyle: TextStyle(color: Colors.black, fontSize: 18.0)),
+            decoration: InputDecoration(
+                label: const Text('Question'), labelStyle: labelStyle),
           )),
           const Padding(padding: EdgeInsets.only(top: 12.0)),
           ListTile(
@@ -48,12 +50,17 @@ class _AddQuestionState extends State<AddQuestion> {
               groupValue: groupVal,
               onChanged: (val) {
                 setState(() {
-                  groupVal = val as int?;
+                  groupVal = 0;
                 });
               },
               activeColor: Colors.green,
             ),
-            title: const Text('Option 1'),
+            title: TextFormField(
+              controller: optionController1,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  label: const Text('Option 1'), labelStyle: labelStyle),
+            ),
           ),
           ListTile(
             leading: Radio(
@@ -61,12 +68,17 @@ class _AddQuestionState extends State<AddQuestion> {
               groupValue: groupVal,
               onChanged: (val) {
                 setState(() {
-                  groupVal = val as int?;
+                  groupVal = 1;
                 });
               },
               activeColor: Colors.green,
             ),
-            title: const Text('Option 2'),
+            title: TextFormField(
+              controller: optionController2,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  label: const Text('Option 2'), labelStyle: labelStyle),
+            ),
           ),
           ListTile(
             leading: Radio(
@@ -74,12 +86,17 @@ class _AddQuestionState extends State<AddQuestion> {
               groupValue: groupVal,
               onChanged: (val) {
                 setState(() {
-                  groupVal = val as int?;
+                  groupVal = 2;
                 });
               },
               activeColor: Colors.green,
             ),
-            title: const Text('Option 3'),
+            title: TextFormField(
+              controller: optionController3,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  label: const Text('Option 3'), labelStyle: labelStyle),
+            ),
           ),
           ListTile(
             leading: Radio(
@@ -87,15 +104,22 @@ class _AddQuestionState extends State<AddQuestion> {
               groupValue: groupVal,
               onChanged: (val) {
                 setState(() {
-                  groupVal = val as int?;
+                  groupVal = 3;
                 });
               },
               activeColor: Colors.green,
             ),
-            title: const Text('Option 4'),
+            title: TextFormField(
+              controller: optionController4,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  label: const Text('Option 4'), labelStyle: labelStyle),
+            ),
           ),
         ],
       ),
     );
   }
+
+  TextStyle labelStyle = const TextStyle(color: Colors.black, fontSize: 18.0);
 }

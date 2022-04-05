@@ -1,5 +1,7 @@
+import 'package:adhyaya_application_new/blocs/tests_bloc/availabletests_bloc.dart';
 import 'package:adhyaya_application_new/presentation_web/login_signup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyAppWeb extends StatelessWidget {
   const MyAppWeb({Key? key}) : super(key: key);
@@ -7,13 +9,24 @@ class MyAppWeb extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Adhyaya Student',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AvailabletestsBloc>(
+          create: (context) =>
+              AvailabletestsBloc()..add(AvailableTestsGetEvent()),
+        ),
+        // BlocProvider(
+        //   create: (context) => SubjectBloc(),
+        // ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Adhyaya Student',
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+        ),
+        home: LoginPageWeb(),
       ),
-      home: LoginPageWeb(),
     );
   }
 }

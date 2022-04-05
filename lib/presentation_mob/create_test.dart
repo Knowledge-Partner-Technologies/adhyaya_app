@@ -1,3 +1,6 @@
+import 'package:adhyaya_application_new/data/apis/create_test_api.dart';
+import 'package:adhyaya_application_new/data/models/questions_model.dart';
+import 'package:adhyaya_application_new/data/models/test_model.dart';
 import 'package:adhyaya_application_new/presentation_mob/add_question.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +35,9 @@ class _CreateTestState extends State<CreateTest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          iconTheme: const IconThemeData(
-    color: Colors.white, //change your color here
-  ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         title: const Text(
           'Create Test',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -115,6 +118,20 @@ class _CreateTestState extends State<CreateTest> {
           setState(() {
             activePage++;
           });
+        } else if (activePage == totalPages) {
+          TestModel testModel = TestModel(
+            duration: int.parse(durationController.text),
+            totalMarks: int.parse(marksController.text),
+            testName: testNameController.text,
+            isPublished: true,
+            testQuestions: int.parse(questionsController.text),
+            // id: 'doc${testNameController.text}'
+          );
+
+          List<QuestionsModel> questionsModel = [];
+
+          CreateTestApi()
+              .createTest(testModel: testModel, questionsModel: questionsModel);
         }
       },
       child: Container(
