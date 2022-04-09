@@ -1,5 +1,6 @@
 import 'package:adhyaya_application_new/blocs/tests_bloc/availabletests_bloc.dart';
 import 'package:adhyaya_application_new/data/models/get_tests_model.dart';
+import 'package:adhyaya_application_new/presentation_web/test_screen.dart';
 import 'package:adhyaya_application_new/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,7 +137,19 @@ class _HomePageWebState extends State<HomePageWeb> {
                           return testTile(
                               context: context,
                               model: state.loadedTests[index],
-                              onTap: () {});
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TestScreenWeb(
+                                            docId: state.loadedTests[index].id,
+                                            testDuration: state
+                                                .loadedTests[index].duration,
+                                            testName: state
+                                                .loadedTests[index].testName,
+                                            requiredQ: state.loadedTests[index]
+                                                .testQuestions)));
+                              });
                         },
                       );
                     } else if (state is AvailabletestError) {
@@ -172,7 +185,6 @@ class _HomePageWebState extends State<HomePageWeb> {
   Widget testTile(
       {required BuildContext context,
       required GetTestModel model,
-     
       required VoidCallback onTap}) {
     return ListTile(
       leading: const Icon(Icons.book_rounded),

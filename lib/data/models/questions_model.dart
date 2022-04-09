@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QuestionsModel {
-  final String question, correctAnswer;
+  final String question;
+  final int correctAnswer;
   final List<String> options;
   QuestionsModel({
     required this.question,
