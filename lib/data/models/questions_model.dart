@@ -1,25 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QuestionsModel {
-  final String question;
-  final int correctAnswer;
-  final List<String> options;
-  QuestionsModel({
-    required this.question,
-    required this.correctAnswer,
-    required this.options,
-  });
+  List<String>? options;
+  String? question;
+  String? correctAnswer;
+  String? submittedAnswer;
 
-  factory QuestionsModel.fromDocumentSnapshot(DocumentSnapshot doc) {
-    return QuestionsModel(
-        question: doc["question"],
-        correctAnswer: doc["correctAnswer"],
-        options: doc["options"]);
+  QuestionsModel({this.options, this.question, this.correctAnswer, this.submittedAnswer});
+
+  QuestionsModel.fromJson(DocumentSnapshot json) {
+    options = json['options'].cast<String>();
+    question = json['question'];
+    correctAnswer = json['correctAnswer'];
   }
 
-  Map<String, dynamic> toMap() => {
-        "question": question,
-        "correctAnswer": correctAnswer,
-        "options": options
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['options'] = options;
+    data['question'] = question;
+    data['correctAnswer'] = correctAnswer;
+    return data;
+  }
 }

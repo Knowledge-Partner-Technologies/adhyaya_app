@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:adhyaya_application_new/data/models/questions_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,7 @@ class TestScreenWeb extends StatefulWidget {
 }
 
 class _TestScreenWebState extends State<TestScreenWeb> {
-  int val = -1;
+  String gVal = '';
   @override
   Widget build(BuildContext context) {
     return BlocProvider<QuestionsBloc>(
@@ -62,11 +64,16 @@ class _TestScreenWebState extends State<TestScreenWeb> {
                               child: CircularProgressIndicator.adaptive(),
                             );
                           } else if (state is QuestionsSuccess) {
-                            return ListView.builder(
+                            return ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return const Divider();
+                                },
                                 itemCount: state.questions.length,
                                 itemBuilder: (context, index) {
-                                  return Text(state.questions[index].question
-                                      .toString());
+                                  return questionTile(state.questions[index], index + 1);
+
+                                  // return Text(state.questions[index].question
+                                  //     .toString(
                                 });
                           } else {
                             return const Center(
@@ -82,9 +89,35 @@ class _TestScreenWebState extends State<TestScreenWeb> {
     );
   }
 
-  Widget questionTile(QuestionsModel qModel) {
-    return Column(
-      children: [Text(qModel.question)],
+  Widget questionTile(QuestionsModel qModel, int index) {
+    return Container(
+      height: 270.0,
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Align(alignment: Alignment.centerLeft, child: Text(index.toString() + ' ' + qModel.question!)),
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              itemCount: qModel.options!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                    leading: Radio(
+                      activeColor: Colors.green,
+                      value: qModel.options![index],
+                      groupValue: qModel.submittedAnswer,
+                      onChanged: (val) {
+                        setState(() {
+                          qModel.submittedAnswer = val.toString();
+                        });
+                        log(qModel.submittedAnswer.toString());
+                      },
+                    ),
+                    title: Text(qModel.options![index]));
+              }),
+        ],
+      ),
     );
   }
 }

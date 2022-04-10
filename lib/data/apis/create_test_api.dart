@@ -19,7 +19,7 @@ class CreateTestApi {
           collection.doc(docId).collection('Questions');
 
       for (var element in questionsModel) {
-        await questionCollection.add(element.toMap());
+        await questionCollection.add(element.toJson());
       }
       return true;
     } else {

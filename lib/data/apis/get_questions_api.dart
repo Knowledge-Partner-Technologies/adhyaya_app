@@ -20,12 +20,13 @@ class GetQuestionsApi {
 
     // List<QueryDocumentSnapshot> data = docsSnap.docs;
 
+    // log(docsSnap.docs.length.toString());
     log(docsSnap.docs.toString());
 
     for (var element in docsSnap.docs) {
-      testQuestions.add(QuestionsModel.fromDocumentSnapshot(element));
+      log(element.data().toString());
+      testQuestions.add(QuestionsModel.fromJson(element));
     }
-
     log(testQuestions.toString());
 
     return testQuestions;
