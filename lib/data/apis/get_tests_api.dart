@@ -6,12 +6,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class GetTests {
   var database = FirebaseFirestore.instance;
 
-  Future<List<GetTestModel>> getAvailableTests() async {
+  Future<List<GetTestModel>> getAvailableTests({required bool isTrue}) async {
     List<GetTestModel> availableTests = [];
 
     CollectionReference collectionReference = database.collection('tests_data');
 
-    var docData = await collectionReference.get();
+    var docData =
+        await collectionReference.where("isPublished", isEqualTo: isTrue).get();
 
     log(docData.toString());
     log(docData.docs.toString());

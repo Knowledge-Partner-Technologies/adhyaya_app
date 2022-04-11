@@ -11,7 +11,7 @@ class AvailabletestsBloc
     on<AvailableTestsGetEvent>((event, emit) async {
       emit(AvailabletestsInitial());
 
-      final result = await GetTests().getAvailableTests();
+      final result = await GetTests().getAvailableTests(isTrue: event.isTrue);
 
       if (result.isNotEmpty) {
         return emit(AvailabletestsLoaded(loadedTests: result));

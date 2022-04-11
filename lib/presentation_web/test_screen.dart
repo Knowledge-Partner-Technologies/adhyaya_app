@@ -72,12 +72,10 @@ class _TestScreenWebState extends State<TestScreenWeb> {
                                 itemBuilder: (context, index) {
                                   return questionTile(state.questions[index], index + 1);
 
-                                  // return Text(state.questions[index].question
-                                  //     .toString(
                                 });
                           } else {
                             return const Center(
-                                child: Text('Somethign went terribly wrong'));
+                                child: Text('Something went terribly wrong'));
                           }
                         })),
                   ],

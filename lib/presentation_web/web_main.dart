@@ -16,7 +16,7 @@ class MyAppWeb extends StatelessWidget {
       providers: [
         BlocProvider<AvailabletestsBloc>(
           create: (context) =>
-              AvailabletestsBloc()..add(AvailableTestsGetEvent()),
+              AvailabletestsBloc()..add(AvailableTestsGetEvent(isTrue: true)),
         ),
         // BlocProvider(
         //   create: (context) => SubjectBloc(),
