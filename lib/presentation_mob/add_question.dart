@@ -2,9 +2,13 @@
 
 import 'package:flutter/material.dart';
 
+// import 'package:adhyaya_application_new/data/models/questions_model.dart';
+
 class AddQuestion extends StatefulWidget {
+//  final QuestionsModel model;
   const AddQuestion({
     Key? key,
+    // required this.model,
   }) : super(key: key);
 
   @override
@@ -12,9 +16,6 @@ class AddQuestion extends StatefulWidget {
 }
 
 class _AddQuestionState extends State<AddQuestion> {
- 
- 
-
   final TextEditingController questionController = TextEditingController();
 
   final TextEditingController optionController = TextEditingController();

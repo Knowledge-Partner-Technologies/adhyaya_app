@@ -1,28 +1,21 @@
 import 'dart:developer';
 
-import 'package:adhyaya_application_new/data/apis/create_test_api.dart';
-import 'package:adhyaya_application_new/data/models/questions_model.dart';
-import 'package:adhyaya_application_new/data/models/test_model.dart';
 import 'package:adhyaya_application_new/presentation_mob/add_question.dart';
-import 'package:adhyaya_application_new/presentation_mob/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:im_stepper/stepper.dart';
 
 class CreateTest extends StatefulWidget {
   const CreateTest({Key? key}) : super(key: key);
 
   @override
-  _CreateTestState createState() => _CreateTestState();
+  State<CreateTest> createState() => _CreateTestState();
 }
 
 class _CreateTestState extends State<CreateTest> {
-  CreateTestApi createTestApi = CreateTestApi();
-
   int activePage = 0;
-  int totalPages = 2;
-  Color iconColor = Colors.white;
+  // int totalPages = 2;
   bool isNextVisible = true;
+  Color iconColor = Colors.green;
 
   TextEditingController testNameController = TextEditingController();
   TextEditingController marksController = TextEditingController();
@@ -40,152 +33,62 @@ class _CreateTestState extends State<CreateTest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // iconTheme: const IconThemeData(
-        //   color: Colors.white,
-        // ),
         title: const Text(
           'Create Test',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.green,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IconStepper(
-              icons: [
-                Icon(
-                  Icons.info,
-                  color: iconColor,
-                ),
-                Icon(
-                  Icons.upload_file,
-                  color: iconColor,
-                ),
-                Icon(
-                  Icons.done,
-                  color: iconColor,
-                )
-              ],
-              direction: Axis.horizontal,
-              lineColor: Colors.purple,
-              activeStepColor: Colors.purple,
-              stepColor: Colors.green,
-              alignment: Alignment.topCenter,
-              activeStep: activePage,
-              onStepReached: (index) {
-                setState(() {
-                  activePage = index;
-                });
-              },
-            ),
-            Expanded(child: getStepBody(currentStep: activePage)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Visibility(
-                  visible: activePage == totalPages - 1 ? true : false,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          floatingAddQuestion(),
-                        ]),
-                  ),
-                ),
-                Visibility(
-                  visible: activePage == totalPages ? false : true,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          nextButton(),
-                        ]),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+      body: Stepper(
+        type: StepperType.horizontal,
+        currentStep: activePage,
+        elevation: 10.0,
+        // onStepTapped: ,
+        onStepContinue: () {
+          final isLastStep = activePage == getSteps().length - 1;
+
+          if (isLastStep) {
+            log('api call');
+          } else {
+            setState(() {
+              activePage += 1;
+            });
+          }
+        },
+        onStepCancel:
+            activePage == 0 ? null : () => setState(() => activePage -= 1),
+        steps: getSteps(),
       ),
     );
   }
 
-  Widget nextButton() {
-    return InkWell(
-      onTap: () {
-        if (activePage < totalPages) {
-          setState(() {
-            activePage++;
-          });
-        } else if (activePage == totalPages) {
-          TestModel testModel = TestModel(
-            duration: int.parse(durationController.text),
-            totalMarks: int.parse(marksController.text),
-            testName: testNameController.text,
-            isPublished: true,
-            testQuestions: int.parse(questionsController.text),
-            // id: 'doc${testNameController.text}'
-          );
-
-          List<QuestionsModel> questionsModel = [];
-
-          CreateTestApi()
-              .createTest(testModel: testModel, questionsModel: questionsModel);
-        }
-      },
-      child: Container(
-        height: 36.0,
-        width: 90.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24.0),
-          border: Border.all(color: Colors.green),
-          color: Colors.white,
+  List<Step> getSteps() {
+    return [
+      Step(
+        isActive: activePage >= 0,
+        title: Icon(
+          Icons.info,
+          color: iconColor,
         ),
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(4.0),
-        child: const Text(
-          'Next',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
+        content: activePage1(),
       ),
-    );
-  }
-
-  Widget floatingAddQuestion() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: FloatingActionButton(
-          onPressed: () {
-            onQuestionAdd();
-          },
-          child: const Icon(
-            Icons.add,
-            size: 36.0,
-          ),
-          tooltip: 'Add a Question',
+      Step(
+        isActive: activePage >= 1,
+        title: Icon(
+          Icons.upload_file,
+          color: iconColor,
         ),
+        content: Container(child: activePage2()),
       ),
-    );
-  }
-
-  Widget getStepBody({required int currentStep}) {
-    if (currentStep == 0) {
-      return activePage1();
-    } else if (currentStep == 1) {
-      return activePage2();
-    } else {
-      return activePage3();
-    }
+      Step(
+        isActive: activePage >= 2,
+        title: Icon(
+          Icons.done,
+          color: iconColor,
+        ),
+        content: Container(child: activePage3()),
+      ),
+    ];
   }
 
   //! First page and widgets of the stepper body
@@ -304,6 +207,18 @@ class _CreateTestState extends State<CreateTest> {
     });
   }
 
+  // Widget activePage2() {
+  //   return questionsListUI.isEmpty
+  //       ? const Center(child: Text('Click on the + to add a question'))
+  //       : ListView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: questionsListUI.length,
+  //           itemBuilder: ((context, index) {
+  //             return questionsListUI[index];
+  //           }));
+  // }
+
+  
   Widget activePage2() {
     return Scaffold(
       body: questionsListUI.isEmpty
@@ -314,10 +229,11 @@ class _CreateTestState extends State<CreateTest> {
               itemBuilder: ((context, index) {
                 return questionsListUI[index];
               })),
-      // floatingActionButton: FloatingActionButton(
-      //     onPressed: onQuestionAdd, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: onQuestionAdd, child: const Icon(Icons.add)),
     );
   }
+
 
 //! Second page and widgets of the stepper body
 
@@ -330,25 +246,13 @@ class _CreateTestState extends State<CreateTest> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           InkWell(
-            onTap: () async {
-              final result = await onCreateTest(isPublished: true);
-
-              if (result == true) {
-                log('Test Model added Successfully');
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    (route) => false);
-              } else {
-                log('Failed to add Test Model');
-              }
-            },
+            onTap: () {},
             child: Container(
               height: 66.0,
               width: MediaQuery.of(context).size.width / 1.3,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32.0),
-                  color: Colors.white,
+                  color: Colors.green,
                   border: Border.all(color: Colors.green, width: 2.0)),
               alignment: Alignment.center,
               padding: const EdgeInsets.all(4.0),
@@ -380,25 +284,13 @@ class _CreateTestState extends State<CreateTest> {
             height: 60.0,
           ),
           InkWell(
-            onTap: () async {
-              final result = await onCreateTest(isPublished: false);
-
-              if (result == true) {
-                log('Test Model added Successfully');
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    (route) => false);
-              } else {
-                log('Failed to add Test Model');
-              }
-            },
+            onTap: () {},
             child: Container(
               height: 66.0,
               width: MediaQuery.of(context).size.width / 1.3,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32.0),
-                  color: Colors.white,
+                  color: Colors.green,
                   border: Border.all(color: Colors.green, width: 2.0)),
               alignment: Alignment.center,
               padding: const EdgeInsets.all(4.0),
@@ -433,47 +325,4 @@ class _CreateTestState extends State<CreateTest> {
 
 //! Third page and widgets of the stepper body
 
-  Future<bool> onCreateTest({required bool isPublished}) async {
-    TestModel apiTestModel = TestModel(
-        duration: int.parse(durationController.text),
-        totalMarks: int.parse(marksController.text),
-        testName: testNameController.text,
-        isPublished: isPublished,
-        testQuestions: int.parse(questionsController.text));
-
-    List<QuestionsModel> apiQuestionModel = [];
-
-    QuestionsModel model1 = QuestionsModel(
-      question: 'Sample Question 1',
-      correctAnswer: 'Answer 1',
-      options: ["Answer 1", "Answer 2", 'Answer 3', 'Answer 4'],
-    );
-
-    QuestionsModel model2 = QuestionsModel(
-      question: 'Sample Question 2',
-      correctAnswer: 'Answer 2',
-      options: ["Answer 1", "Answer 2", 'Answer 3', 'Answer 4'],
-    );
-
-    QuestionsModel model3 = QuestionsModel(
-      question: 'Sample Question 3',
-      correctAnswer: 'Answer 3',
-      options: ["Answer 1", "Answer 2", 'Answer 3', 'Answer 4'],
-    );
-
-    apiQuestionModel.add(model1);
-    apiQuestionModel.add(model2);
-    apiQuestionModel.add(model3);
-
-    final result = await createTestApi
-        .createTest(testModel: apiTestModel, questionsModel: apiQuestionModel);
-
-    if (result == true) {
-      log('Test Model added Successfully');
-      return true;
-    } else {
-      log('Failed to add Test Model');
-      return false;
-    }
-  }
 }

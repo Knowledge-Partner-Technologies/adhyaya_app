@@ -9,18 +9,16 @@ class CreateTestApi {
       {required TestModel testModel,
       required List<QuestionsModel> questionsModel}) async {
     CollectionReference collection = database.collection('tests_data');
-
     final result = await collection.add(testModel.toMap());
-
     var docId = result.id;
-
     if (result.id.isNotEmpty) {
       CollectionReference questionCollection =
           collection.doc(docId).collection('Questions');
 
       for (var element in questionsModel) {
-        await questionCollection.add(element.toJson());
+        await questionCollection.add(element.toMap());
       }
+
       return true;
     } else {
       return false;
